@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>True Or False :: <%= yield(:title) || "What do your friends think about you?" %> </title>
+ 
+  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print">
+<!–[if IE]><link rel="stylesheet" href="stylesheets/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]–>
+  <%=  javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+ 
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<header id="header" class=" last">
+   <h1 class="left" id="page_title"><a href="/" title="Here goes the page title">Here goes the page title</a></h1>
+   <div id="user_nav right">
+   <% if user_signed_in? %>
+     Signed in as <%= current_user.email %>. Not you?
+     <%= link_to "Sign out", destroy_user_session_path %>
+   <% else %>
+     <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+  <% end %>
+</div>
+</header>
+<div class="container">
+<hr />
+<div id="subheader" class="span-24 last">
+         <h3 class="alt left">Here goes the sub header</h3>
+         <div class="prepend-1 left last">
+          something wil go here
+         </div>
+       </div>
+
+<hr />
+<nav  class="span-24 last">
+    <div class="left">
+    <a class='large caps' href='/ioannis'>home</a>   &#8226;  <a class='large caps' href='/members/story/approve/'>approve</a>   &#8226;  <a class='large caps' href='/favorites/ioannis'>favorites</a>     </div>
+    <div class="right">
+    <span class="caps">My Url: http://TrueOrFalse.Me/</span>ioannis     </div>
+
+</nav>
+<hr />
+  <% if flash.length > 0 %>
+
+        <% flash.each do |key, value| %>
+
+             <% if key == "error" %>
+                  <div class="error"><%= value %></div>
+             <% elsif key == "success" %>
+                  <div class="success"><%= value %></div>
+             <% else %>
+                 <div class="notice"><%= value %></div>
+             <% end %>
+
+        <% end %>
+
+    <% end %>
+  
+<%= yield %>
+
+ </div> <!-- Class container -->
+
+</body>
+</html>
